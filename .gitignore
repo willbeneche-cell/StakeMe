@@ -1,0 +1,4 @@
+node_modules/
+artifacts/
+.server.pid
+.DS_Store

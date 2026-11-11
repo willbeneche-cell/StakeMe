@@ -1,0 +1,1031 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="manifest" href="./manifest.json" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="StakeMe" />
+  <link rel="apple-touch-icon" href="assets/pwa/apple-touch-icon-180.png" />
+  <link rel="apple-touch-startup-image" href="assets/pwa/splash-1170x2532.png" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3)" />
+  <link rel="apple-touch-startup-image" href="assets/pwa/splash-1284x2778.png" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3)" />
+  <link rel="apple-touch-startup-image" href="assets/pwa/splash-1125x2436.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" />
+  <meta name="description" content="StakeMe — casino social 100% fictif. Mines, Crash, Poule et Dé. Aucun argent réel." />
+  <title>StakeMe · Casino social fictif</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%2300e701'/%3E%3Cpath d='M17 5c1 4-3 5-3 9 0 2 1.5 3 1.5 3S12 16 12 12c-2 2-4 5-4 8 0 4 3.5 7 8 7s8-3 8-7.5C24 13 20 9 17 5z' fill='%23071b0a'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: { 900: '#0a0e17', 850: '#0e1420', 800: '#131a28', 750: '#172032', 700: '#1b2537', 600: '#243046' },
+            neon: { green: '#00e701', mint: '#2ee6a8', lime: '#b6ff3c', violet: '#a855f7', pink: '#ec4899', blue: '#38bdf8' }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            display: ['"Space Grotesk"', 'Inter', 'sans-serif']
+          },
+          boxShadow: {
+            glow: '0 0 30px rgba(0,231,1,.22)',
+            violet: '0 0 30px rgba(168,85,247,.25)',
+            lift: '0 24px 60px -30px rgba(0,0,0,.95)'
+          },
+          borderRadius: { '4xl': '1.75rem' }
+        }
+      }
+    };
+  </script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <link rel="stylesheet" href="assets/app.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+</head>
+<body class="bg-ink-900 font-sans text-slate-200 antialiased">
+
+  <!-- Dégradés SVG partagés par les visuels de jeu (cloches, poulet, diamant, mine) -->
+  <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
+    <defs>
+      <linearGradient id="goldDome" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#fff3c4"/><stop offset=".32" stop-color="#e9bb57"/>
+        <stop offset=".62" stop-color="#a9762b"/><stop offset=".85" stop-color="#d9a545"/><stop offset="1" stop-color="#8a5d1c"/>
+      </linearGradient>
+      <linearGradient id="goldPlate" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#ffe9a8"/><stop offset=".55" stop-color="#d8a63f"/><stop offset="1" stop-color="#7a5218"/>
+      </linearGradient>
+      <radialGradient id="goldKnob" cx=".35" cy=".3" r=".85">
+        <stop offset="0" stop-color="#fffbe8"/><stop offset=".55" stop-color="#e9c368"/><stop offset="1" stop-color="#9a6d22"/>
+      </radialGradient>
+      <radialGradient id="roastGold" cx=".38" cy=".3" r=".85">
+        <stop offset="0" stop-color="#ffe3a3"/><stop offset=".45" stop-color="#e0a044"/>
+        <stop offset=".78" stop-color="#b46f1c"/><stop offset="1" stop-color="#7a4410"/>
+      </radialGradient>
+      <linearGradient id="boneIvory" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#fffdf4"/><stop offset=".55" stop-color="#e7e1d0"/><stop offset="1" stop-color="#a89f88"/>
+      </linearGradient>
+      <linearGradient id="gemA" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#f5f3ff"/><stop offset=".35" stop-color="#c4b5fd"/>
+        <stop offset=".7" stop-color="#8b5cf6"/><stop offset="1" stop-color="#5b21b6"/>
+      </linearGradient>
+      <linearGradient id="gemB" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#a5f3fc"/><stop offset=".45" stop-color="#60a5fa"/><stop offset="1" stop-color="#4338ca"/>
+      </linearGradient>
+      <radialGradient id="mineBody" cx=".35" cy=".3" r=".9">
+        <stop offset="0" stop-color="#64748b"/><stop offset=".5" stop-color="#1f2937"/><stop offset="1" stop-color="#0b0f18"/>
+      </radialGradient>
+      <radialGradient id="fuseSpark" cx=".5" cy=".5" r=".5">
+        <stop offset="0" stop-color="#fffbe6"/><stop offset=".4" stop-color="#fde047"/>
+        <stop offset=".75" stop-color="#f97316"/><stop offset="1" stop-color="#f97316" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+  </svg>
+
+  <!-- ============ SIDEBAR (desktop) ============ -->
+  <aside class="fixed inset-y-0 left-0 z-40 hidden w-[248px] flex-col border-r border-white/[0.06] bg-ink-850/70 px-4 py-5 backdrop-blur-xl lg:flex">
+    <button class="flex items-center gap-2.5 px-2" data-nav="home" aria-label="Accueil StakeMe">
+      <span class="brand-script">stakeme</span>
+    </button>
+
+    <nav class="mt-8 space-y-1" aria-label="Navigation principale">
+      <button class="side-link" data-nav="home"><i data-lucide="house" class="icon"></i><span>Accueil</span></button>
+      <button class="side-link" data-nav="games"><i data-lucide="gamepad-2" class="icon"></i><span>Mini-jeux</span><span class="pill-badge">4</span></button>
+      <button class="side-link" data-nav="casino"><i data-lucide="dices" class="icon"></i><span>Casino</span></button>
+      <button class="side-link" data-nav="history"><i data-lucide="scroll-text" class="icon"></i><span>Historique</span></button>
+      <button class="side-link" data-nav="profile"><i data-lucide="user-round" class="icon"></i><span>Profil</span></button>
+    </nav>
+
+    <div class="mt-7 rounded-2xl border border-white/[0.07] bg-gradient-to-br from-neon-violet/15 via-transparent to-neon-green/10 p-4">
+      <div class="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-widest text-neon-lime/90">
+        <i data-lucide="sparkles" class="h-3.5 w-3.5"></i> Bonus démo
+      </div>
+      <p class="mt-2 text-sm font-semibold leading-snug text-white">1 000 $ fictifs t'attendent</p>
+      <p class="mt-1 text-xs leading-relaxed text-slate-400">Recharge ton portefeuille quand tu veux, sans carte bancaire.</p>
+      <button class="btn btn-primary btn-sm mt-3 w-full" data-open-deposit><i data-lucide="plus" class="h-4 w-4"></i> Dépôt fictif</button>
+    </div>
+
+    <div class="mt-auto space-y-3 pt-6">
+      <div class="flex items-center gap-2 rounded-xl border border-white/[0.06] bg-ink-800/60 px-3 py-2.5">
+        <i data-lucide="shield-check" class="h-4 w-4 text-neon-mint"></i>
+        <p class="text-[11px] leading-tight text-slate-400">Démo locale<br /><span class="text-slate-500">Aucun argent réel</span></p>
+      </div>
+      <button class="flex w-full items-center gap-2.5 rounded-xl px-2 py-2 text-left transition hover:bg-white/[0.04]" data-nav="profile">
+        <span class="avatar-sm" id="sidebarAvatar">🦊</span>
+        <span class="min-w-0">
+          <span class="block truncate text-sm font-semibold text-white" id="sidebarName">Guest</span>
+          <span class="block text-[11px] text-slate-500">Niveau <span id="sidebarLevel">1</span></span>
+        </span>
+        <i data-lucide="chevron-right" class="ml-auto h-4 w-4 text-slate-600"></i>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ============ SHELL ============ -->
+  <div class="min-h-screen lg:pl-[248px]">
+    <header class="app-header sticky top-0 z-30 border-b border-white/[0.06] bg-ink-900/85 backdrop-blur-xl">
+      <div class="mx-auto flex h-16 w-full max-w-[1180px] items-center gap-3 px-4 lg:h-[72px] lg:px-8">
+        <button class="flex items-center gap-2 lg:hidden" data-nav="home" aria-label="Accueil StakeMe">
+          <span class="brand-script brand-script-sm">stakeme</span>
+        </button>
+
+        <div class="hidden items-center gap-2 lg:flex">
+          <label class="search-field">
+            <i data-lucide="search" class="h-4 w-4 text-slate-500"></i>
+            <input id="searchInput" type="search" placeholder="Rechercher un jeu…" autocomplete="off" />
+            <kbd>/</kbd>
+          </label>
+        </div>
+
+        <div class="ml-auto flex items-center gap-2">
+          <div class="balance-widget">
+            <button class="flex items-center gap-2 rounded-l-xl px-2.5 py-2 transition hover:bg-white/[0.05]" data-nav="profile" title="Portefeuille fictif">
+              <span class="coin-icon"><i data-lucide="coins" class="h-3.5 w-3.5"></i></span>
+              <span class="font-display text-[15px] font-bold tabular-nums text-white" data-balance>1 000,00</span>
+            </button>
+            <button class="flex h-full items-center justify-center rounded-r-xl border-l border-white/10 bg-white/[0.06] px-2.5 transition hover:bg-neon-green hover:text-ink-900" data-open-deposit title="Dépôt fictif" aria-label="Dépôt fictif">
+              <i data-lucide="plus" class="h-4 w-4"></i>
+            </button>
+          </div>
+          <button class="avatar-btn" data-nav="profile" aria-label="Profil">
+            <span id="headerAvatar">🦊</span>
+            <span class="avatar-status"></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="mx-auto w-full max-w-[1180px] px-4 pb-32 pt-5 lg:px-8 lg:pb-16 lg:pt-8">
+
+      <!-- ================= HOME ================= -->
+      <section id="view-home" class="view">
+        <div class="hero card">
+          <div class="hero-art" aria-hidden="true">
+            <span class="hero-orb hero-orb-a"></span>
+            <span class="hero-orb hero-orb-b"></span>
+            <span class="hero-grid"></span>
+            <i data-lucide="flame" class="hero-flame"></i>
+          </div>
+          <div class="relative z-10 max-w-[560px]">
+            <span class="eyebrow"><span class="live-dot"></span> Session de démonstration</span>
+            <h1 class="mt-3 font-display text-[27px] font-bold leading-[1.12] tracking-tight text-white sm:text-4xl">
+              Bienvenue, <span id="heroName" class="hero-name">joueur</span>.
+            </h1>
+            <p class="mt-2 max-w-[440px] text-[13px] leading-relaxed text-slate-400 sm:text-sm">
+              Quatre jeux originaux, un portefeuille fictif et une mécanique provably fair.
+              Tout reste sur ton appareil — zéro argent réel.
+            </p>
+            <div class="mt-5 flex flex-wrap items-center gap-2.5">
+              <button class="btn btn-primary" data-nav="games">
+                <i data-lucide="play" class="h-4 w-4"></i> Jouer maintenant
+              </button>
+              <button class="btn btn-ghost" data-open-deposit>
+                <i data-lucide="wallet" class="h-4 w-4"></i> Dépôt fictif
+              </button>
+            </div>
+            <div class="mt-6 flex flex-wrap gap-x-7 gap-y-3">
+              <div>
+                <p class="stat-label">Solde</p>
+                <p class="stat-value text-white">$<span data-balance>1 000,00</span></p>
+              </div>
+              <div>
+                <p class="stat-label">Total misé</p>
+                <p class="stat-value">$<span data-stat="wagered">0,00</span></p>
+              </div>
+              <div>
+                <p class="stat-label">Plus gros gain</p>
+                <p class="stat-value text-neon-mint">$<span data-stat="biggestWin">0,00</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 flex items-end justify-between">
+          <div>
+            <h2 class="section-title">Tes jeux</h2>
+            <p class="section-sub">Originals StakeMe · résultats instantanés</p>
+          </div>
+          <button class="link-more" data-nav="games">Tout voir <i data-lucide="chevron-right" class="h-4 w-4"></i></button>
+        </div>
+
+        <div class="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <button class="game-card" data-game="chicken">
+            <div class="game-art art-chicken">
+              <span class="art-glow"></span>
+              <i data-lucide="bird" class="art-icon"></i>
+              <img class="art-img" src="assets/brand/jeu-poule.svg" alt="" aria-hidden="true" loading="lazy" onload="this.parentElement.classList.add('has-art')" onerror="this.remove()" />
+              <span class="art-mult">×6.5</span>
+            </div>
+            <div class="flex items-center justify-between gap-1 px-1 pt-2.5">
+              <div class="min-w-0">
+                <p class="game-name">La Poule</p>
+                <p class="game-meta">Traverse · cashout</p>
+              </div>
+              <span class="tag tag-green">Hot</span>
+            </div>
+          </button>
+          <button class="game-card" data-game="mines">
+            <div class="game-art art-mines">
+              <span class="art-glow"></span>
+              <i data-lucide="bomb" class="art-icon"></i>
+              <img class="art-img" src="assets/brand/jeu-mines.svg" alt="" aria-hidden="true" loading="lazy" onload="this.parentElement.classList.add('has-art')" onerror="this.remove()" />
+              <span class="art-mult">×24</span>
+            </div>
+            <div class="flex items-center justify-between gap-1 px-1 pt-2.5">
+              <div class="min-w-0">
+                <p class="game-name">Mines</p>
+                <p class="game-meta">5 × 5 · 1 à 24 mines</p>
+              </div>
+              <span class="tag tag-violet">Top</span>
+            </div>
+          </button>
+          <button class="game-card" data-game="crash">
+            <div class="game-art art-crash">
+              <span class="art-glow"></span>
+              <i data-lucide="rocket" class="art-icon"></i>
+              <img class="art-img" src="assets/brand/jeu-crash.svg" alt="" aria-hidden="true" loading="lazy" onload="this.parentElement.classList.add('has-art')" onerror="this.remove()" />
+              <span class="art-mult">×∞</span>
+            </div>
+            <div class="flex items-center justify-between gap-1 px-1 pt-2.5">
+              <div class="min-w-0">
+                <p class="game-name">Crash</p>
+                <p class="game-meta">Le jet peut exploser</p>
+              </div>
+              <span class="tag tag-pink">Live</span>
+            </div>
+          </button>
+          <button class="game-card" data-game="dice">
+            <div class="game-art art-dice">
+              <span class="art-glow"></span>
+              <i data-lucide="dices" class="art-icon"></i>
+              <img class="art-img" src="assets/brand/jeu-dice.svg" alt="" aria-hidden="true" loading="lazy" onload="this.parentElement.classList.add('has-art')" onerror="this.remove()" />
+              <span class="art-mult">×1.98</span>
+            </div>
+            <div class="flex items-center justify-between gap-1 px-1 pt-2.5">
+              <div class="min-w-0">
+                <p class="game-name">Dé</p>
+                <p class="game-meta">Roll under / over</p>
+              </div>
+              <span class="tag">Rapide</span>
+            </div>
+          </button>
+        </div>
+
+        <div class="mt-6 grid gap-4 lg:grid-cols-[1.25fr_1fr]">
+          <div class="card overflow-hidden">
+            <div class="flex items-center justify-between border-b border-white/[0.06] px-4 py-3.5">
+              <h3 class="flex items-center gap-2 text-sm font-semibold text-white">
+                <span class="live-dot"></span> Gains en direct
+              </h3>
+              <span class="text-[11px] font-medium uppercase tracking-wider text-slate-500">Fictif · temps réel</span>
+            </div>
+            <div id="liveFeed" class="divide-y divide-white/[0.04]"></div>
+          </div>
+          <div class="card">
+            <div class="flex items-center justify-between border-b border-white/[0.06] px-4 py-3.5">
+              <h3 class="text-sm font-semibold text-white">Activité récente</h3>
+              <button class="link-more !text-[11px]" data-nav="history">Historique</button>
+            </div>
+            <div id="recentActivity" class="px-4 py-3"></div>
+          </div>
+        </div>
+
+        <p class="mt-6 flex items-center justify-center gap-1.5 text-[11px] text-slate-600">
+          <i data-lucide="info" class="h-3.5 w-3.5"></i>
+          StakeMe est un projet de démonstration. Aucun dépôt, retrait ni argent réel.
+        </p>
+      </section>
+
+      <!-- ================= GAMES ================= -->
+      <section id="view-games" class="view hidden">
+        <div class="page-head">
+          <div>
+            <span class="eyebrow"><i data-lucide="gamepad-2" class="h-3.5 w-3.5"></i> Originals</span>
+            <h1 class="page-title">Mini-jeux</h1>
+            <p class="page-sub">Quatre mécaniques de casino, rendues simples et rapides.</p>
+          </div>
+          <div class="balance-chip">
+            <span class="coin-icon"><i data-lucide="coins" class="h-3.5 w-3.5"></i></span>
+            <span>$<span data-balance>1 000,00</span></span>
+          </div>
+        </div>
+
+        <div class="mt-5 flex gap-2 overflow-x-auto pb-1 no-scrollbar">
+          <button class="filter-chip active" data-game-filter="all">Tous</button>
+          <button class="filter-chip" data-game-filter="hot">Populaires</button>
+          <button class="filter-chip" data-game-filter="instant">Instantanés</button>
+          <button class="filter-chip" data-game-filter="skill">Skill</button>
+        </div>
+
+        <div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" id="gamesGrid">
+          <button class="game-card game-card-lg" data-game="chicken" data-tags="hot skill">
+            <div class="game-art art-chicken">
+              <span class="art-glow"></span>
+              <i data-lucide="bird" class="art-icon"></i>
+              <img class="art-img" src="assets/brand/jeu-poule.svg" alt="" aria-hidden="true" loading="lazy" onload="this.parentElement.classList.add('has-art')" onerror="this.remove()" />
+              <span class="art-mult">×6.5</span>
+            </div>
+            <div class="px-1 pt-3">
+              <div class="flex items-center justify-between">
+                <p class="game-name">La Poule</p>
+                <span class="tag tag-green">Hot</span>
+              </div>
+              <p class="game-meta mt-0.5">Traverse les voies, encaisse avant l'accident.</p>
+              <div class="mt-3 flex items-center justify-between text-[11px] text-slate-500">
+                <span>RTP 99 %</span><span class="text-slate-300">Jouer <span class="text-neon-green">→</span></span>
+              </div>
+            </div>
+          </button>
+          <button class="game-card game-card-lg" data-game="mines" data-tags="hot">
+            <div class="game-art art-mines">
+              <span class="art-glow"></span>
+              <i data-lucide="bomb" class="art-icon"></i>
+              <img class="art-img" src="assets/brand/jeu-mines.svg" alt="" aria-hidden="true" loading="lazy" onload="this.parentElement.classList.add('has-art')" onerror="this.remove()" />
+              <span class="art-mult">×24</span>
+            </div>
+            <div class="px-1 pt-3">
+              <div class="flex items-center justify-between">
+                <p class="game-name">Mines</p>
+                <span class="tag tag-violet">Top</span>
+              </div>
+              <p class="game-meta mt-0.5">25 cases, 1 à 24 mines, un seul cashout.</p>
+              <div class="mt-3 flex items-center justify-between text-[11px] text-slate-500">
+                <span>RTP 99 %</span><span class="text-slate-300">Jouer <span class="text-neon-green">→</span></span>
+              </div>
+            </div>
+          </button>
+          <button class="game-card game-card-lg" data-game="crash" data-tags="hot instant">
+            <div class="game-art art-crash">
+              <span class="art-glow"></span>
+              <i data-lucide="rocket" class="art-icon"></i>
+              <img class="art-img" src="assets/brand/jeu-crash.svg" alt="" aria-hidden="true" loading="lazy" onload="this.parentElement.classList.add('has-art')" onerror="this.remove()" />
+              <span class="art-mult">×∞</span>
+            </div>
+            <div class="px-1 pt-3">
+              <div class="flex items-center justify-between">
+                <p class="game-name">Crash</p>
+                <span class="tag tag-pink">Live</span>
+              </div>
+              <p class="game-meta mt-0.5">Le multiplicateur grimpe. Saute avant l'explosion.</p>
+              <div class="mt-3 flex items-center justify-between text-[11px] text-slate-500">
+                <span>RTP 99 %</span><span class="text-slate-300">Jouer <span class="text-neon-green">→</span></span>
+              </div>
+            </div>
+          </button>
+          <button class="game-card game-card-lg" data-game="dice" data-tags="instant">
+            <div class="game-art art-dice">
+              <span class="art-glow"></span>
+              <i data-lucide="dices" class="art-icon"></i>
+              <img class="art-img" src="assets/brand/jeu-dice.svg" alt="" aria-hidden="true" loading="lazy" onload="this.parentElement.classList.add('has-art')" onerror="this.remove()" />
+              <span class="art-mult">×1.98</span>
+            </div>
+            <div class="px-1 pt-3">
+              <div class="flex items-center justify-between">
+                <p class="game-name">Dé</p>
+                <span class="tag">Rapide</span>
+              </div>
+              <p class="game-meta mt-0.5">Règle le seuil, lance et laisse les chiffres parler.</p>
+              <div class="mt-3 flex items-center justify-between text-[11px] text-slate-500">
+                <span>RTP 99 %</span><span class="text-slate-300">Jouer <span class="text-neon-green">→</span></span>
+              </div>
+            </div>
+          </button>
+
+          <div class="game-card game-card-lg is-locked" aria-disabled="true">
+            <div class="game-art art-locked"><i data-lucide="lock" class="art-icon"></i></div>
+            <div class="px-1 pt-3">
+              <div class="flex items-center justify-between">
+                <p class="game-name text-slate-400">Plinko</p>
+                <span class="tag">Bientôt</span>
+              </div>
+              <p class="game-meta mt-0.5">Billes, pegs et multiplicateurs en cascade.</p>
+            </div>
+          </div>
+          <div class="game-card game-card-lg is-locked" aria-disabled="true">
+            <div class="game-art art-locked"><i data-lucide="lock" class="art-icon"></i></div>
+            <div class="px-1 pt-3">
+              <div class="flex items-center justify-between">
+                <p class="game-name text-slate-400">Blackjack</p>
+                <span class="tag">Bientôt</span>
+              </div>
+              <p class="game-meta mt-0.5">Le classique 21, en version solo.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mt-5 flex flex-col items-start gap-3 p-5 sm:flex-row sm:items-center">
+          <span class="list-icon list-icon-violet"><i data-lucide="shield-check" class="h-5 w-5"></i></span>
+          <div class="flex-1">
+            <p class="text-sm font-semibold text-white">Provably fair, simulé localement</p>
+            <p class="mt-0.5 text-xs leading-relaxed text-slate-400">Chaque résultat provient d'une chaîne SHA-256 (seed serveur + seed client + nonce). Ouvre l'icône bouclier dans un jeu pour vérifier.</p>
+          </div>
+          <button class="btn btn-ghost btn-sm" data-open-fair><i data-lucide="external-link" class="h-4 w-4"></i> Vérifier</button>
+        </div>
+      </section>
+
+      <!-- ================= CASINO ================= -->
+      <section id="view-casino" class="view hidden">
+        <div class="page-head">
+          <div>
+            <span class="eyebrow"><i data-lucide="dices" class="h-3.5 w-3.5"></i> Lobby</span>
+            <h1 class="page-title">Casino</h1>
+            <p class="page-sub">Une sélection de machines fictives pour l'ambiance.</p>
+          </div>
+          <div class="balance-chip">
+            <span class="coin-icon"><i data-lucide="coins" class="h-3.5 w-3.5"></i></span>
+            <span>$<span data-balance>1 000,00</span></span>
+          </div>
+        </div>
+
+        <div class="relative mt-5 overflow-hidden rounded-3xl border border-white/[0.07] bg-gradient-to-r from-neon-violet/20 via-ink-800 to-neon-green/10 p-5 sm:p-7">
+          <div class="relative z-10 max-w-md">
+            <p class="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/60">Table du jour</p>
+            <h2 class="mt-1.5 font-display text-2xl font-bold text-white">Le lobby des Originals</h2>
+            <p class="mt-1.5 text-sm text-slate-300/80">Les slots ci-dessous sont décoratifs. Les vrais gains se jouent dans les mini-jeux.</p>
+            <button class="btn btn-primary btn-sm mt-4" data-nav="games">Voir les mini-jeux <i data-lucide="arrow-right" class="h-4 w-4"></i></button>
+          </div>
+          <i data-lucide="sparkles" class="pointer-events-none absolute -right-4 -top-6 h-40 w-40 text-white/[0.06]"></i>
+        </div>
+
+        <div class="mt-6 flex items-end justify-between">
+          <h2 class="section-title">Machines</h2>
+          <span class="text-[11px] text-slate-500">Démo visuelle</span>
+        </div>
+        <div class="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4" id="slotsGrid"></div>
+      </section>
+
+      <!-- ================= HISTORY ================= -->
+      <section id="view-history" class="view hidden">
+        <div class="page-head">
+          <div>
+            <span class="eyebrow"><i data-lucide="scroll-text" class="h-3.5 w-3.5"></i> Journal</span>
+            <h1 class="page-title">Historique</h1>
+            <p class="page-sub">Tous tes paris, stockés sur cet appareil.</p>
+          </div>
+          <button class="btn btn-ghost btn-sm" id="exportHistory"><i data-lucide="download" class="h-4 w-4"></i> Exporter</button>
+        </div>
+
+        <div class="mt-5 grid grid-cols-2 gap-3 lg:grid-cols-4">
+          <div class="stat-card"><p class="stat-label">Paris joués</p><p class="stat-value-lg" data-stat="bets">0</p></div>
+          <div class="stat-card"><p class="stat-label">Taux de gain</p><p class="stat-value-lg" id="statWinrate">—</p></div>
+          <div class="stat-card"><p class="stat-label">Misé</p><p class="stat-value-lg">$<span data-stat="wagered">0,00</span></p></div>
+          <div class="stat-card"><p class="stat-label">Net</p><p class="stat-value-lg" id="statNet">$0,00</p></div>
+        </div>
+
+        <div class="mt-5 flex gap-2 overflow-x-auto pb-1 no-scrollbar">
+          <button class="filter-chip active" data-history-filter="all">Tous</button>
+          <button class="filter-chip" data-history-filter="chicken">Poule</button>
+          <button class="filter-chip" data-history-filter="mines">Mines</button>
+          <button class="filter-chip" data-history-filter="crash">Crash</button>
+          <button class="filter-chip" data-history-filter="dice">Dé</button>
+        </div>
+
+        <div id="historyList" class="mt-3"></div>
+      </section>
+
+      <!-- ================= PROFILE ================= -->
+      <section id="view-profile" class="view hidden">
+        <div class="page-head">
+          <div>
+            <span class="eyebrow"><i data-lucide="user-round" class="h-3.5 w-3.5"></i> Compte local</span>
+            <h1 class="page-title">Profil</h1>
+            <p class="page-sub">Tes données ne quittent jamais ce navigateur.</p>
+          </div>
+        </div>
+
+        <div class="mt-5 grid gap-4 lg:grid-cols-[1.1fr_1fr]">
+          <div class="card p-5">
+            <div class="flex items-center gap-4">
+              <span class="avatar-xl" id="profileAvatar">🦊</span>
+              <div class="min-w-0 flex-1">
+                <p class="text-[11px] font-semibold uppercase tracking-widest text-slate-500">Pseudo</p>
+                <div class="mt-1 flex items-center gap-2">
+                  <input id="profileName" maxlength="18" class="profile-name-input" value="Guest" aria-label="Pseudo" />
+                  <button class="icon-btn-sm" id="saveName" title="Enregistrer"><i data-lucide="check" class="h-4 w-4"></i></button>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-5">
+              <div class="flex items-center justify-between text-[11px]">
+                <span class="font-semibold uppercase tracking-wider text-slate-500">Niveau <span id="profileLevel">1</span> · Recrue</span>
+                <span class="text-slate-500"><span id="profileXp">0</span> / <span id="profileXpMax">500</span> XP</span>
+              </div>
+              <div class="mt-2 h-2 overflow-hidden rounded-full bg-white/[0.06]">
+                <div id="xpBar" class="h-full w-0 rounded-full bg-gradient-to-r from-neon-green to-neon-mint transition-all duration-500"></div>
+              </div>
+            </div>
+
+            <div class="mt-5">
+              <p class="text-[11px] font-semibold uppercase tracking-widest text-slate-500">Avatar</p>
+              <div class="mt-2 grid grid-cols-8 gap-1.5 sm:gap-2" id="avatarPicker"></div>
+            </div>
+
+            <div class="mt-5 grid grid-cols-2 gap-2">
+              <div class="mini-stat"><span>Paris</span><strong data-stat="bets">0</strong></div>
+              <div class="mini-stat"><span>Gains</span><strong data-stat="wins">0</strong></div>
+              <div class="mini-stat"><span>Misé</span><strong>$<span data-stat="wagered">0,00</span></strong></div>
+              <div class="mini-stat"><span>Plus gros</span><strong class="text-neon-mint">$<span data-stat="biggestWin">0,00</span></strong></div>
+            </div>
+
+            <p class="mt-4 flex items-center gap-1.5 text-[11px] text-slate-600">
+              <i data-lucide="calendar" class="h-3.5 w-3.5"></i> Membre depuis le <span id="memberSince">—</span>
+            </p>
+          </div>
+
+          <div class="space-y-4">
+            <div class="card p-5">
+              <h3 class="text-sm font-semibold text-white">Préférences</h3>
+              <div class="mt-3 divide-y divide-white/[0.05]">
+                <label class="pref-row">
+                  <span class="flex items-center gap-2.5"><i data-lucide="volume-2" class="h-4 w-4 text-slate-400"></i> Sons du casino</span>
+                  <input type="checkbox" id="prefSound" class="switch" />
+                </label>
+                <label class="pref-row">
+                  <span class="flex items-center gap-2.5"><i data-lucide="sparkles" class="h-4 w-4 text-slate-400"></i> Animations & confettis</span>
+                  <input type="checkbox" id="prefEffects" class="switch" />
+                </label>
+              </div>
+            </div>
+
+            <div class="card p-5">
+              <div class="flex items-center gap-2">
+                <span class="list-icon list-icon-green !h-8 !w-8"><i data-lucide="shield-check" class="h-4 w-4"></i></span>
+                <h3 class="text-sm font-semibold text-white">Provably fair</h3>
+              </div>
+              <p class="mt-2.5 text-xs leading-relaxed text-slate-400">Seed client actuel :</p>
+              <p class="mt-1 truncate rounded-lg border border-white/[0.06] bg-ink-900/60 px-2.5 py-2 font-mono text-[11px] text-slate-300" id="profileClientSeed">—</p>
+              <button class="btn btn-ghost btn-sm mt-3 w-full" data-open-fair>Gérer la fairness <i data-lucide="arrow-up-right" class="h-3.5 w-3.5"></i></button>
+            </div>
+
+            <div class="card border-red-500/15 p-5">
+              <h3 class="text-sm font-semibold text-white">Zone sensible</h3>
+              <p class="mt-1 text-xs leading-relaxed text-slate-400">Réinitialise le solde à 1 000 $ et efface l'historique, les stats et les seeds.</p>
+              <button class="btn btn-danger btn-sm mt-3" id="resetAccount"><i data-lucide="rotate-ccw" class="h-4 w-4"></i> Réinitialiser le compte</button>
+            </div>
+
+            <p class="text-center text-[11px] text-slate-600">StakeMe v1.0 · démo locale · aucun argent réel</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= GAME: CHICKEN ================= -->
+      <section id="game-chicken" class="game-view hidden">
+        <div class="game-topbar">
+          <button class="icon-btn" data-back aria-label="Retour"><i data-lucide="arrow-left" class="h-[18px] w-[18px]"></i></button>
+          <span class="game-badge badge-green"><i data-lucide="bird" class="game-badge-icon h-5 w-5"></i><img class="game-badge-img" src="assets/brand/jeu-poule.svg" alt="" aria-hidden="true" onload="this.parentElement.classList.add('has-game-badge')" onerror="this.remove()" /></span>
+          <div class="min-w-0">
+            <h1 class="game-title">La Poule</h1>
+            <p class="game-subtitle">Soulève les cloches · cashout libre</p>
+          </div>
+          <button class="icon-btn ml-auto" data-open-fair aria-label="Provably fair"><i data-lucide="shield-check" class="h-[18px] w-[18px]"></i></button>
+        </div>
+
+        <div class="grid gap-4 lg:grid-cols-[330px_minmax(0,1fr)]">
+          <div class="order-2 card bet-panel lg:order-1" data-panel="chicken">
+            <div class="flex items-center justify-between">
+              <span class="panel-label">Difficulté</span>
+              <span class="text-[11px] text-slate-500" id="chickenOdds">4 os · 21 plats</span>
+            </div>
+            <div class="mt-2 grid grid-cols-4 gap-1 rounded-xl border border-white/[0.06] bg-ink-900/60 p-1">
+              <button class="seg-btn active" data-diff="easy">Facile</button>
+              <button class="seg-btn" data-diff="medium">Moyen</button>
+              <button class="seg-btn" data-diff="hard">Dur</button>
+              <button class="seg-btn" data-diff="master">Maître</button>
+            </div>
+
+            <div class="mt-4">
+              <span class="panel-label">Montant de la mise</span>
+              <div class="bet-input-wrap mt-1.5">
+                <span class="bet-currency">$</span>
+                <input id="chickenBet" data-bet-input type="number" min="1" step="1" inputmode="decimal" value="10" aria-label="Mise poule" />
+                <button data-quick="half" title="Diviser par 2">½</button>
+                <button data-quick="double" title="Doubler">2×</button>
+              </div>
+              <div class="mt-2 grid grid-cols-2 gap-2">
+                <button class="btn btn-ghost btn-sm" data-quick="min">MIN</button>
+                <button class="btn btn-ghost btn-sm" data-quick="max">MAX</button>
+              </div>
+            </div>
+
+            <div class="mt-4 space-y-2 rounded-xl border border-white/[0.06] bg-ink-900/40 p-3 text-[13px]">
+              <div class="flex justify-between"><span class="text-slate-500">Multiplicateur</span><span class="font-semibold tabular-nums text-white" id="chickenMult">1.00×</span></div>
+              <div class="flex justify-between"><span class="text-slate-500">Gain potentiel</span><span class="font-semibold tabular-nums text-neon-mint" id="chickenPotential">$10.00</span></div>
+              <div class="flex justify-between"><span class="text-slate-500">Prochaine cloche</span><span class="font-semibold tabular-nums text-slate-300" id="chickenNext">1.24×</span></div>
+            </div>
+
+            <div class="mt-4 space-y-2">
+              <button class="btn btn-primary w-full" id="chickenStart"><i data-lucide="play" class="h-4 w-4"></i> Miser & jouer</button>
+              <button class="btn btn-cash w-full" id="chickenCashout" disabled><i data-lucide="hand-coins" class="h-4 w-4"></i> Encaisser</button>
+            </div>
+            <p class="mt-3 text-center text-[11px] text-slate-500">Un os sous une cloche et la mise est perdue.</p>
+          </div>
+
+          <div class="order-1 card game-stage lg:order-2">
+            <div class="flex items-center justify-between gap-3 px-4 pt-4">
+              <div>
+                <p class="panel-label">Multiplicateur actuel</p>
+                <p class="font-display text-3xl font-bold tabular-nums text-white" id="chickenCurrent">1.00×</p>
+              </div>
+              <div class="text-right">
+                <p class="panel-label">Cloches</p>
+                <p class="text-sm font-semibold text-slate-300"><span id="chickenStep">0</span> / 25</p>
+              </div>
+            </div>
+
+            <div class="relative mt-3 px-3 pb-4" id="chickenStage">
+              <div class="cloche-head">
+                <span class="live-pill"><span class="live-dot"></span> Table dorée</span>
+                <span id="chickenHint">Lance une mise pour ouvrir les cloches.</span>
+              </div>
+              <div class="cloche-table" id="chickenTable">
+                <div class="cloche-grid" id="chickenBoard"></div>
+              </div>
+              <div class="chicken-overlay is-hidden" id="chickenOverlay">
+                <div class="chicken-result">
+                  <p class="font-display text-2xl font-bold text-white" id="chickenOverlayTitle">Os.</p>
+                  <p class="mt-1 text-sm text-slate-400" id="chickenOverlayText">La mise est perdue.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-between gap-2 border-t border-white/[0.06] px-4 py-3 text-[11px] text-slate-500">
+              <span class="flex items-center gap-1.5"><i data-lucide="circle-help" class="h-3.5 w-3.5"></i> 25 cloches · RTP 99 %</span>
+              <span class="flex items-center gap-1.5"><i data-lucide="shield-check" class="h-3.5 w-3.5 text-neon-mint"></i> Provably fair</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= GAME: MINES ================= -->
+      <section id="game-mines" class="game-view hidden">
+        <div class="game-topbar">
+          <button class="icon-btn" data-back aria-label="Retour"><i data-lucide="arrow-left" class="h-[18px] w-[18px]"></i></button>
+          <span class="game-badge badge-violet"><i data-lucide="bomb" class="game-badge-icon h-5 w-5"></i><img class="game-badge-img" src="assets/brand/jeu-mines.svg" alt="" aria-hidden="true" onload="this.parentElement.classList.add('has-game-badge')" onerror="this.remove()" /></span>
+          <div class="min-w-0">
+            <h1 class="game-title">Mines</h1>
+            <p class="game-subtitle">Trouve les diamants · évite les bombes</p>
+          </div>
+          <button class="icon-btn ml-auto" data-open-fair aria-label="Provably fair"><i data-lucide="shield-check" class="h-[18px] w-[18px]"></i></button>
+        </div>
+
+        <div class="grid gap-4 lg:grid-cols-[330px_minmax(0,1fr)]">
+          <div class="order-2 card bet-panel lg:order-1" data-panel="mines">
+            <div class="flex items-center justify-between">
+              <span class="panel-label">Nombre de mines</span>
+              <span class="rounded-md bg-neon-violet/15 px-2 py-0.5 text-xs font-bold text-neon-violet" id="minesCount">3</span>
+            </div>
+            <input id="minesRange" type="range" min="1" max="24" value="3" class="range mt-3" aria-label="Nombre de mines" />
+            <div class="mt-1 flex justify-between text-[10px] font-medium text-slate-600"><span>1 mine</span><span>24 mines</span></div>
+
+            <div class="mt-4">
+              <span class="panel-label">Montant de la mise</span>
+              <div class="bet-input-wrap mt-1.5">
+                <span class="bet-currency">$</span>
+                <input id="minesBet" data-bet-input type="number" min="1" step="1" inputmode="decimal" value="10" aria-label="Mise mines" />
+                <button data-quick="half" title="Diviser par 2">½</button>
+                <button data-quick="double" title="Doubler">2×</button>
+              </div>
+              <div class="mt-2 grid grid-cols-2 gap-2">
+                <button class="btn btn-ghost btn-sm" data-quick="min">MIN</button>
+                <button class="btn btn-ghost btn-sm" data-quick="max">MAX</button>
+              </div>
+            </div>
+
+            <div class="mt-4 space-y-2 rounded-xl border border-white/[0.06] bg-ink-900/40 p-3 text-[13px]">
+              <div class="flex justify-between"><span class="text-slate-500">Diamants trouvés</span><span class="font-semibold tabular-nums text-white" id="minesFound">0</span></div>
+              <div class="flex justify-between"><span class="text-slate-500">Multiplicateur</span><span class="font-semibold tabular-nums text-white" id="minesMult">1.00×</span></div>
+              <div class="flex justify-between"><span class="text-slate-500">Gain potentiel</span><span class="font-semibold tabular-nums text-neon-mint" id="minesPotential">$0.00</span></div>
+            </div>
+
+            <div class="mt-4 space-y-2">
+              <button class="btn btn-primary w-full" id="minesStart"><i data-lucide="play" class="h-4 w-4"></i> Miser & jouer</button>
+              <button class="btn btn-cash w-full" id="minesCashout" disabled><i data-lucide="hand-coins" class="h-4 w-4"></i> Encaisser</button>
+            </div>
+            <p class="mt-3 text-center text-[11px] text-slate-500">Le cashout s'active dès le premier diamant.</p>
+          </div>
+
+          <div class="order-1 card game-stage lg:order-2">
+            <div class="flex items-center justify-between gap-3 px-4 pt-4">
+              <div>
+                <p class="panel-label">Multiplicateur</p>
+                <p class="font-display text-3xl font-bold tabular-nums text-white" id="minesCurrent">1.00×</p>
+              </div>
+              <div class="flex items-center gap-2 text-[11px] text-slate-500">
+                <span class="inline-flex items-center gap-1"><i data-lucide="gem" class="h-3.5 w-3.5 text-neon-green"></i> <span id="minesSafeLeft">22</span> sûres</span>
+                <span class="inline-flex items-center gap-1"><i data-lucide="bomb" class="h-3.5 w-3.5 text-red-400"></i> <span id="minesMinesLeft">3</span></span>
+              </div>
+            </div>
+
+            <div class="mines-wrap">
+              <div class="mines-grid" id="minesBoard"></div>
+              <div class="mines-overlay hidden" id="minesOverlay">
+                <div class="text-center">
+                  <p class="font-display text-2xl font-bold text-white" id="minesOverlayTitle">Boom.</p>
+                  <p class="mt-1 text-sm text-slate-400" id="minesOverlayText">La bombe a tout emporté.</p>
+                  <button class="btn btn-primary btn-sm mt-4" id="minesAgain"><i data-lucide="rotate-ccw" class="h-4 w-4"></i> Rejouer</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-between gap-2 border-t border-white/[0.06] px-4 py-3 text-[11px] text-slate-500">
+              <span class="flex items-center gap-1.5"><i data-lucide="grid-3x3" class="h-3.5 w-3.5"></i> 25 cases · 1 à 24 mines</span>
+              <span class="flex items-center gap-1.5"><i data-lucide="shield-check" class="h-3.5 w-3.5 text-neon-mint"></i> Provably fair</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= GAME: CRASH ================= -->
+      <section id="game-crash" class="game-view hidden">
+        <div class="game-topbar">
+          <button class="icon-btn" data-back aria-label="Retour"><i data-lucide="arrow-left" class="h-[18px] w-[18px]"></i></button>
+          <span class="game-badge badge-pink"><i data-lucide="rocket" class="game-badge-icon h-5 w-5"></i><img class="game-badge-img" src="assets/brand/jeu-crash.svg" alt="" aria-hidden="true" onload="this.parentElement.classList.add('has-game-badge')" onerror="this.remove()" /></span>
+          <div class="min-w-0">
+            <h1 class="game-title">Crash</h1>
+            <p class="game-subtitle">Le jet décolle · encaisse avant l'explosion</p>
+          </div>
+          <button class="icon-btn ml-auto" data-open-fair aria-label="Provably fair"><i data-lucide="shield-check" class="h-[18px] w-[18px]"></i></button>
+        </div>
+
+        <div class="grid gap-4 lg:grid-cols-[330px_minmax(0,1fr)]">
+          <div class="order-2 card bet-panel lg:order-1" data-panel="crash">
+            <div class="flex items-center justify-between">
+              <span class="panel-label">Montant de la mise</span>
+              <span class="rounded-md bg-white/[0.06] px-2 py-0.5 text-[11px] font-medium text-slate-400" id="crashPhaseBadge">En attente</span>
+            </div>
+            <div class="bet-input-wrap mt-1.5">
+              <span class="bet-currency">$</span>
+              <input id="crashBet" data-bet-input type="number" min="1" step="1" inputmode="decimal" value="10" aria-label="Mise crash" />
+              <button data-quick="half" title="Diviser par 2">½</button>
+              <button data-quick="double" title="Doubler">2×</button>
+            </div>
+            <div class="mt-2 grid grid-cols-2 gap-2">
+              <button class="btn btn-ghost btn-sm" data-quick="min">MIN</button>
+              <button class="btn btn-ghost btn-sm" data-quick="max">MAX</button>
+            </div>
+
+            <div class="mt-4">
+              <div class="flex items-center justify-between">
+                <span class="panel-label">Cashout automatique</span>
+                <input type="checkbox" id="crashAuto" class="switch" aria-label="Cashout automatique" />
+              </div>
+              <div class="bet-input-wrap mt-2">
+                <input id="crashAutoTarget" type="number" min="1.01" step="0.1" value="2.00" aria-label="Cible auto" disabled />
+                <span class="bet-currency !border-l !border-white/10 !border-r-0">×</span>
+              </div>
+            </div>
+
+            <div class="mt-4 rounded-xl border border-white/[0.06] bg-ink-900/40 p-3 text-[13px]">
+              <div class="flex justify-between"><span class="text-slate-500">Mise en jeu</span><span class="font-semibold tabular-nums text-white">$<span id="crashStake">0.00</span></span></div>
+              <div class="mt-2 flex justify-between"><span class="text-slate-500">Gain si cashout</span><span class="font-semibold tabular-nums text-neon-mint" id="crashPotential">$0.00</span></div>
+            </div>
+
+            <div class="mt-4 space-y-2">
+              <button class="btn btn-primary w-full" id="crashAction"><i data-lucide="rocket" class="h-4 w-4"></i> Miser</button>
+              <p class="text-center text-[11px] text-slate-500" id="crashHint">La mise est prise en compte au prochain décollage.</p>
+            </div>
+          </div>
+
+          <div class="order-1 card game-stage lg:order-2">
+            <div class="flex flex-wrap items-center justify-between gap-2 px-4 pb-1 pt-4">
+              <p class="panel-label">Derniers vols</p>
+              <div class="flex gap-1.5 overflow-hidden" id="crashHistory">
+                <span class="crash-chip">1.00×</span>
+              </div>
+            </div>
+            <div class="crash-canvas-wrap" id="crashWrap">
+              <canvas id="crashCanvas"></canvas>
+              <div class="crash-readout">
+                <p class="crash-multiplier" id="crashMultiplier">1.00×</p>
+                <p class="crash-status" id="crashStatus">Préparation du prochain vol…</p>
+              </div>
+              <div class="crash-crashed" id="crashCrashed">CRASHED</div>
+              <div class="crash-flash" id="crashFlash"></div>
+            </div>
+            <div class="flex flex-wrap items-center justify-between gap-2 border-t border-white/[0.06] px-4 py-3 text-[11px] text-slate-500">
+              <span class="flex items-center gap-1.5"><i data-lucide="trending-up" class="h-3.5 w-3.5"></i> RTP 99 % · courbe en direct</span>
+              <span class="flex items-center gap-1.5"><i data-lucide="shield-check" class="h-3.5 w-3.5 text-neon-mint"></i> Crash pré-déterminé</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= GAME: DICE ================= -->
+      <section id="game-dice" class="game-view hidden">
+        <div class="game-topbar">
+          <button class="icon-btn" data-back aria-label="Retour"><i data-lucide="arrow-left" class="h-[18px] w-[18px]"></i></button>
+          <span class="game-badge badge-blue"><i data-lucide="dices" class="game-badge-icon h-5 w-5"></i><img class="game-badge-img" src="assets/brand/jeu-dice.svg" alt="" aria-hidden="true" onload="this.parentElement.classList.add('has-game-badge')" onerror="this.remove()" /></span>
+          <div class="min-w-0">
+            <h1 class="game-title">Dé</h1>
+            <p class="game-subtitle">Règle ton seuil · lance en un clic</p>
+          </div>
+          <button class="icon-btn ml-auto" data-open-fair aria-label="Provably fair"><i data-lucide="shield-check" class="h-[18px] w-[18px]"></i></button>
+        </div>
+
+        <div class="grid gap-4 lg:grid-cols-[330px_minmax(0,1fr)]">
+          <div class="order-2 card bet-panel lg:order-1" data-panel="dice">
+            <span class="panel-label">Montant de la mise</span>
+            <div class="bet-input-wrap mt-1.5">
+              <span class="bet-currency">$</span>
+              <input id="diceBet" data-bet-input type="number" min="1" step="1" inputmode="decimal" value="10" aria-label="Mise dé" />
+              <button data-quick="half" title="Diviser par 2">½</button>
+              <button data-quick="double" title="Doubler">2×</button>
+            </div>
+            <div class="mt-2 grid grid-cols-2 gap-2">
+              <button class="btn btn-ghost btn-sm" data-quick="min">MIN</button>
+              <button class="btn btn-ghost btn-sm" data-quick="max">MAX</button>
+            </div>
+
+            <div class="mt-4 space-y-2 rounded-xl border border-white/[0.06] bg-ink-900/40 p-3 text-[13px]">
+              <div class="flex justify-between"><span class="text-slate-500">Chance de gagner</span><span class="font-semibold tabular-nums text-white" id="diceChance">49.50 %</span></div>
+              <div class="flex justify-between"><span class="text-slate-500">Multiplicateur</span><span class="font-semibold tabular-nums text-neon-green" id="diceMult">2.00×</span></div>
+              <div class="flex justify-between"><span class="text-slate-500">Gain potentiel</span><span class="font-semibold tabular-nums text-neon-mint" id="dicePotential">$20.00</span></div>
+            </div>
+
+            <button class="btn btn-primary mt-4 w-full" id="diceRoll"><i data-lucide="dices" class="h-4 w-4"></i> Lancer le dé</button>
+            <p class="mt-3 text-center text-[11px] text-slate-500">Le paiement est automatique à chaque lancer.</p>
+          </div>
+
+          <div class="order-1 card game-stage lg:order-2">
+            <div class="dice-display">
+              <div class="dice-result-wrap">
+                <span class="dice-result-label">ROLL</span>
+                <div class="dice-line">
+                  <div class="dice-scene" aria-hidden="true">
+                    <div class="dice-cube" id="diceCube">
+                      <span class="dice-face face-1"></span>
+                      <span class="dice-face face-2"></span>
+                      <span class="dice-face face-3"></span>
+                      <span class="dice-face face-4"></span>
+                      <span class="dice-face face-5"></span>
+                      <span class="dice-face face-6"></span>
+                    </div>
+                  </div>
+                  <p class="dice-result" id="diceResult">50.00</p>
+                </div>
+              </div>
+
+              <div class="mt-1 w-full max-w-[520px] px-2">
+                <div class="dice-scale">
+                  <span id="diceScaleLow">0</span>
+                  <span id="diceScaleHigh">100</span>
+                </div>
+                <div class="dice-track-wrap">
+                  <div class="dice-track" id="diceTrack">
+                    <div class="dice-half dice-lose" id="diceLoseZone"><span>Perdant</span></div>
+                    <div class="dice-half dice-win" id="diceWinZone"><span>Gagnant</span></div>
+                    <div class="dice-marker" id="diceMarker"></div>
+                    <div class="dice-pin" id="dicePin"></div>
+                  </div>
+                  <input id="diceSlider" type="range" min="2" max="98" step="0.01" value="50.5" class="dice-slider" aria-label="Seuil du dé" />
+                </div>
+                <div class="mt-3 flex items-center justify-between">
+                  <div class="seg-group">
+                    <button class="seg-btn active" data-dice-mode="under">Roll under</button>
+                    <button class="seg-btn" data-dice-mode="over">Roll over</button>
+                  </div>
+                  <div class="flex gap-1.5">
+                    <button class="mini-chip" data-dice-preset="25">25 %</button>
+                    <button class="mini-chip" data-dice-preset="50">50 %</button>
+                    <button class="mini-chip" data-dice-preset="75">75 %</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="border-t border-white/[0.06] px-4 py-3">
+              <div class="flex items-center justify-between">
+                <p class="panel-label">Derniers lancers</p>
+                <span class="text-[11px] text-slate-600">vert = gagné</span>
+              </div>
+              <div class="mt-2 flex gap-1.5 overflow-hidden" id="diceHistory">
+                <span class="dice-chip win">50.00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ============ BOTTOM NAV ============ -->
+  <nav class="bottom-nav lg:hidden" aria-label="Navigation mobile">
+    <button class="bottom-link active" data-nav="home"><i data-lucide="house" class="h-5 w-5"></i><span>Accueil</span></button>
+    <button class="bottom-link" data-nav="games"><i data-lucide="gamepad-2" class="h-5 w-5"></i><span>Mini-jeux</span></button>
+    <button class="bottom-link" data-nav="casino"><i data-lucide="dices" class="h-5 w-5"></i><span>Casino</span></button>
+    <button class="bottom-link" data-nav="history"><i data-lucide="scroll-text" class="h-5 w-5"></i><span>Historique</span></button>
+    <button class="bottom-link" data-nav="profile"><i data-lucide="user-round" class="h-5 w-5"></i><span>Profil</span></button>
+  </nav>
+
+  <!-- ============ DEPOSIT MODAL ============ -->
+  <div class="modal" id="modal-deposit" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="depositTitle">
+    <div class="modal-backdrop" data-close="deposit"></div>
+    <div class="modal-card">
+      <div class="modal-head">
+        <span class="list-icon list-icon-green !h-10 !w-10"><i data-lucide="wallet" class="h-5 w-5"></i></span>
+        <div class="min-w-0 flex-1">
+          <h2 id="depositTitle" class="text-base font-semibold text-white">Dépôt fictif</h2>
+          <p class="text-xs text-slate-400">Ajoute des fonds de démo, instantanément.</p>
+        </div>
+        <button class="icon-btn-sm" data-close="deposit" aria-label="Fermer"><i data-lucide="x" class="h-4 w-4"></i></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="grid grid-cols-2 gap-2">
+          <button class="amount-tile" data-amount="100"><span>$100</span><small>Petite recharge</small></button>
+          <button class="amount-tile" data-amount="500"><span>$500</span><small>Populaire</small></button>
+          <button class="amount-tile" data-amount="1000"><span>$1 000</span><small>Généreux</small></button>
+          <button class="amount-tile" data-amount="5000"><span>$5 000</span><small>High roller</small></button>
+        </div>
+
+        <label class="mt-4 block">
+          <span class="panel-label">Montant personnalisé</span>
+          <div class="bet-input-wrap mt-1.5">
+            <span class="bet-currency">$</span>
+            <input id="depositCustom" type="number" min="1" step="1" inputmode="decimal" placeholder="0" />
+          </div>
+        </label>
+
+        <div class="mt-4 flex items-center justify-between rounded-xl border border-white/[0.06] bg-ink-900/50 px-3 py-2.5 text-[13px]">
+          <span class="text-slate-500">Nouveau solde</span>
+          <span class="font-semibold tabular-nums text-white">$<span id="depositPreview">1 000,00</span></span>
+        </div>
+
+        <button class="btn btn-primary mt-4 w-full" id="depositSubmit">
+          <i data-lucide="plus" class="h-4 w-4"></i> Créditer mon compte fictif
+        </button>
+        <p class="mt-3 flex items-start gap-1.5 text-[11px] leading-relaxed text-slate-500">
+          <i data-lucide="info" class="mt-0.5 h-3.5 w-3.5 shrink-0"></i>
+          Fonds de démonstration sans valeur. Aucun paiement, aucune carte, aucun retrait.
+        </p>
+      </div>
+      <div class="coin-shower" id="coinShower" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <!-- ============ FAIRNESS MODAL ============ -->
+  <div class="modal" id="modal-fair" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="fairTitle">
+    <div class="modal-backdrop" data-close="fair"></div>
+    <div class="modal-card">
+      <div class="modal-head">
+        <span class="list-icon list-icon-violet !h-10 !w-10"><i data-lucide="shield-check" class="h-5 w-5"></i></span>
+        <div class="min-w-0 flex-1">
+          <h2 id="fairTitle" class="text-base font-semibold text-white">Provably fair</h2>
+          <p class="text-xs text-slate-400">Seed serveur chiffré · seed client · nonce</p>
+        </div>
+        <button class="icon-btn-sm" data-close="fair" aria-label="Fermer"><i data-lucide="x" class="h-4 w-4"></i></button>
+      </div>
+
+      <div class="modal-body space-y-3">
+        <div class="fair-block">
+          <span class="panel-label">Hash du seed serveur (SHA-256)</span>
+          <p class="fair-value" id="fairHash">—</p>
+        </div>
+        <div class="fair-block">
+          <span class="panel-label">Seed client (modifiable)</span>
+          <input id="fairClientSeed" class="fair-input" spellcheck="false" />
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div class="fair-block !mb-0">
+            <span class="panel-label">Nonce</span>
+            <p class="fair-value" id="fairNonce">0</p>
+          </div>
+          <div class="fair-block !mb-0">
+            <span class="panel-label">Seed révélé</span>
+            <p class="fair-value truncate" id="fairRevealed">—</p>
+          </div>
+        </div>
+        <div class="flex gap-2">
+          <button class="btn btn-ghost btn-sm flex-1" id="fairRotate"><i data-lucide="refresh-cw" class="h-4 w-4"></i> Renouveler le seed</button>
+          <button class="btn btn-primary btn-sm flex-1" id="fairSave">Enregistrer</button>
+        </div>
+        <p class="text-[11px] leading-relaxed text-slate-500">
+          Chaque résultat est calculé à partir de <span class="text-slate-300">SHA-256(seed serveur : seed client : nonce)</span>, converti en flottants.
+          Le hash est publié avant les mises ; l'ancien seed est révélé à la rotation. Simulation locale — aucune vérification on-chain.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ TOASTS ============ -->
+  <div id="toasts" class="toast-stack" aria-live="polite"></div>
+
+  <script type="module" src="js/app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>

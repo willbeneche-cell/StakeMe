@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" width="320" height="200">
+  <defs>
+    <linearGradient id="minesBg" x1="0" y1="0" x2="0.7" y2="1">
+      <stop offset="0" stop-color="#1c2748"/>
+      <stop offset="1" stop-color="#070c18"/>
+    </linearGradient>
+    <linearGradient id="minesGreen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8bf7cc"/>
+      <stop offset="1" stop-color="#0fa36b"/>
+    </linearGradient>
+    <linearGradient id="minesRed" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff8494"/>
+      <stop offset="1" stop-color="#c31c46"/>
+    </linearGradient>
+    <linearGradient id="minesGem" x1="0.2" y1="0" x2="0.7" y2="1">
+      <stop offset="0" stop-color="#e6f9ff"/>
+      <stop offset="0.45" stop-color="#63d4ff"/>
+      <stop offset="1" stop-color="#2b5bff"/>
+    </linearGradient>
+    <linearGradient id="minesBomb" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3d4a63"/>
+      <stop offset="1" stop-color="#111a2c"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="320" height="200" fill="url(#minesBg)"/>
+  <g stroke="#2b3a63" stroke-width="3" fill="none" opacity="0.5">
+    <path d="M0 50h320M0 100h320M0 150h320"/>
+    <path d="M64 0v200M128 0v200M192 0v200M256 0v200"/>
+  </g>
+
+  <!-- tuile rouge + mine -->
+  <g transform="translate(208 84) rotate(-13)">
+    <rect x="-44" y="-44" width="88" height="88" rx="15" fill="url(#minesRed)"/>
+    <g fill="#ffd166" opacity="0.85">
+      <path d="M-44 -14 L-62 -26 L-40 -4 Z"/>
+      <path d="M-40 -44 L-52 -60 L-26 -48 Z"/>
+      <path d="M6 -44 L18 -62 L22 -42 Z"/>
+    </g>
+    <circle cx="-2" cy="6" r="25" fill="url(#minesBomb)"/>
+    <circle cx="-10" cy="-3" r="7" fill="#64748b" opacity="0.55"/>
+    <path d="M15 -14c15-6 20-16 14-27" stroke="#8a6a3c" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+    <circle cx="29" cy="-44" r="7" fill="#ffd166"/>
+    <circle cx="29" cy="-44" r="3.2" fill="#fffbe8"/>
+  </g>
+
+  <!-- tuile verte + diamant -->
+  <g transform="translate(118 114) rotate(8)">
+    <rect x="-43" y="-43" width="86" height="86" rx="14" fill="url(#minesGreen)"/>
+    <path d="M0 -27 L23 -6 L0 27 L-23 -6 Z" fill="url(#minesGem)"/>
+    <path d="M0 -27 L23 -6 L0 -6 Z" fill="#eaf9ff"/>
+    <path d="M0 -27 L-23 -6 L0 -6 Z" fill="#2b5bff" opacity="0.5"/>
+    <path d="M-23 -6 H23 L0 27 Z" fill="#8fe6ff" opacity="0.45"/>
+    <path d="M-23 -6 H23" stroke="#ffffff" stroke-width="2" opacity="0.85"/>
+    <path d="M-31 -33l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#ffffff" opacity="0.95"/>
+  </g>
+
+  <g fill="#ffffff" opacity="0.5">
+    <circle cx="52" cy="44" r="1.8"/>
+    <circle cx="286" cy="164" r="2"/>
+    <circle cx="270" cy="38" r="1.4"/>
+  </g>
+</svg>

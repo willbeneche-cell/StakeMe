@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" width="320" height="200">
+  <defs>
+    <linearGradient id="diceBg" x1="0" y1="0" x2="0.8" y2="1">
+      <stop offset="0" stop-color="#a855f7"/>
+      <stop offset="0.55" stop-color="#8b5cf6"/>
+      <stop offset="1" stop-color="#6d28d9"/>
+    </linearGradient>
+    <linearGradient id="diceWhite" x1="0.1" y1="0" x2="0.8" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.7" stop-color="#eef1f6"/>
+      <stop offset="1" stop-color="#c9d2df"/>
+    </linearGradient>
+    <linearGradient id="diceRed" x1="0.1" y1="0" x2="0.9" y2="1">
+      <stop offset="0" stop-color="#ff8fa3"/>
+      <stop offset="0.5" stop-color="#f43f5e"/>
+      <stop offset="1" stop-color="#be123c"/>
+    </linearGradient>
+    <radialGradient id="diceHalo" cx="0.5" cy="0.45" r="0.5">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="320" height="200" fill="url(#diceBg)"/>
+  <rect width="320" height="200" fill="url(#diceHalo)"/>
+
+  <!-- anneau -->
+  <circle cx="148" cy="104" r="76" fill="#2c1152" opacity="0.55"/>
+  <circle cx="148" cy="104" r="76" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.12"/>
+  <path d="M84.5 66 A76 76 0 0 1 211.5 66" fill="none" stroke="#22c55e" stroke-width="7" stroke-linecap="round" opacity="0.9"/>
+
+  <!-- dé rouge (arrière) -->
+  <g transform="translate(206 116) rotate(14)">
+    <rect x="-40" y="-30" width="84" height="84" rx="16" fill="#a4123a" opacity="0.55"/>
+    <rect x="-42" y="-42" width="84" height="84" rx="16" fill="url(#diceRed)"/>
+    <g fill="#ffe4ea">
+      <circle cx="-24" cy="-24" r="6.4"/>
+      <circle cx="24" cy="-24" r="6.4"/>
+      <circle cx="-24" cy="0" r="6.4"/>
+      <circle cx="24" cy="0" r="6.4"/>
+      <circle cx="-24" cy="24" r="6.4"/>
+      <circle cx="24" cy="24" r="6.4"/>
+    </g>
+    <path d="M-30 -34c8-4 18-5 26-3" stroke="#ffffff" stroke-width="4" opacity="0.35" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- dé blanc (devant) -->
+  <g transform="translate(122 92) rotate(-14)">
+    <rect x="-38" y="-28" width="88" height="88" rx="18" fill="#9aa6b8" opacity="0.5"/>
+    <rect x="-44" y="-44" width="88" height="88" rx="18" fill="url(#diceWhite)"/>
+    <g fill="#1c2536">
+      <circle cx="-26" cy="-26" r="7.4"/>
+      <circle cx="26" cy="-26" r="7.4"/>
+      <circle cx="0" cy="0" r="7.4"/>
+      <circle cx="-26" cy="26" r="7.4"/>
+      <circle cx="26" cy="26" r="7.4"/>
+    </g>
+    <path d="M-30 -34c8-4 18-5 26-3" stroke="#ffffff" stroke-width="5" opacity="0.8" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- éclats -->
+  <g fill="#ffffff" opacity="0.85">
+    <path d="M272 44l2.4 6.4 6.4 2.4-6.4 2.4-2.4 6.4-2.4-6.4-6.4-2.4 6.4-2.4z"/>
+    <path d="M42 140l2 5.4 5.4 2-5.4 2-2 5.4-2-5.4-5.4-2 5.4-2z" opacity="0.7"/>
+  </g>
+</svg>

@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" width="320" height="200">
+  <defs>
+    <linearGradient id="crashBg" x1="0" y1="0" x2="0.8" y2="1">
+      <stop offset="0" stop-color="#0b1434"/>
+      <stop offset="0.6" stop-color="#1a1145"/>
+      <stop offset="1" stop-color="#2c1352"/>
+    </linearGradient>
+    <radialGradient id="crashNebula" cx="0.82" cy="0.86" r="0.5">
+      <stop offset="0" stop-color="#c026d3" stop-opacity="0.6"/>
+      <stop offset="1" stop-color="#c026d3" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="crashPlanet" cx="0.32" cy="0.28" r="0.85">
+      <stop offset="0" stop-color="#7dd3fc"/>
+      <stop offset="0.55" stop-color="#3b82f6"/>
+      <stop offset="1" stop-color="#1e3a8a"/>
+    </radialGradient>
+    <linearGradient id="crashBody" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.55" stop-color="#e2e8f0"/>
+      <stop offset="1" stop-color="#94a3b8"/>
+    </linearGradient>
+    <linearGradient id="crashNose" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ff9f43"/>
+      <stop offset="1" stop-color="#ef4b1f"/>
+    </linearGradient>
+    <linearGradient id="crashFlame" x1="1" y1="0" x2="0" y2="0">
+      <stop offset="0" stop-color="#fff7cc"/>
+      <stop offset="0.4" stop-color="#ffd166"/>
+      <stop offset="0.75" stop-color="#fb7a1e"/>
+      <stop offset="1" stop-color="#f43f5e" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="crashGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#ffb347" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#ffb347" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="320" height="200" fill="url(#crashBg)"/>
+  <rect width="320" height="200" fill="url(#crashNebula)"/>
+
+  <!-- étoiles -->
+  <g fill="#ffffff">
+    <circle cx="24" cy="30" r="1.6" opacity="0.9"/>
+    <circle cx="62" cy="76" r="1.1" opacity="0.6"/>
+    <circle cx="104" cy="24" r="1.9" opacity="0.85"/>
+    <circle cx="150" cy="52" r="1.2" opacity="0.55"/>
+    <circle cx="196" cy="20" r="1.7" opacity="0.8"/>
+    <circle cx="244" cy="64" r="1.2" opacity="0.6"/>
+    <circle cx="288" cy="26" r="1.5" opacity="0.85"/>
+    <circle cx="306" cy="98" r="1.1" opacity="0.5"/>
+    <circle cx="42" cy="112" r="1.2" opacity="0.5"/>
+    <circle cx="272" cy="140" r="1.6" opacity="0.7"/>
+    <circle cx="134" cy="170" r="1.3" opacity="0.5"/>
+    <circle cx="212" cy="176" r="1.2" opacity="0.45"/>
+    <circle cx="86" cy="160" r="1" opacity="0.4"/>
+  </g>
+
+  <!-- planète -->
+  <g transform="translate(56 158)">
+    <circle r="31" fill="url(#crashPlanet)"/>
+    <g clip-path="none" stroke="#1e40af" stroke-width="4" opacity="0.35">
+      <path d="M-28 -8h56M-30 2h60M-24 12h48"/>
+    </g>
+    <circle r="31" fill="none" stroke="#60a5fa" stroke-width="1.5" opacity="0.4"/>
+  </g>
+
+  <!-- fusée -->
+  <g transform="translate(168 104) rotate(-32)">
+    <ellipse cx="-92" cy="0" rx="78" ry="34" fill="url(#crashGlow)"/>
+    <!-- flamme -->
+    <path d="M-62 -13C-92 -9 -120 0 -152 0 -120 9 -92 13 -62 13Z" fill="url(#crashFlame)"/>
+    <!-- ailerons -->
+    <path d="M-42 -20 L-74 -46 L-24 -20 Z" fill="#f97316"/>
+    <path d="M-42 20 L-74 46 L-24 20 Z" fill="#f97316"/>
+    <path d="M-42 -20 L-58 -36 L-34 -20 Z" fill="#ffb347"/>
+    <path d="M-42 20 L-58 36 L-34 20 Z" fill="#ffb347"/>
+    <!-- corps -->
+    <rect x="-58" y="-19" width="98" height="38" rx="19" fill="url(#crashBody)"/>
+    <path d="M38 -19C60 -19 82 0 82 0 82 0 60 19 38 19Z" fill="url(#crashNose)"/>
+    <path d="M40 -17C58 -15 74 -4 79 -1H40Z" fill="#ffd0a8" opacity="0.55"/>
+    <rect x="-64" y="-13" width="12" height="26" rx="5" fill="#8a5a2b"/>
+    <!-- hublot -->
+    <circle cx="6" cy="0" r="12" fill="#334155"/>
+    <circle cx="6" cy="0" r="9" fill="#0f172a"/>
+    <path d="M0 -6a9 9 0 0 1 9 5" stroke="#7dd3fc" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+    <!-- liseré -->
+    <path d="M-58 -2h30" stroke="#f97316" stroke-width="3" opacity="0.8" stroke-linecap="round"/>
+  </g>
+
+  <!-- traînée -->
+  <g fill="#38bdf8" opacity="0.5">
+    <path d="M52 176l14-4 4 4-14 4z"/>
+    <path d="M38 186l18-5 4 3-18 5z" opacity="0.7"/>
+  </g>
+</svg>

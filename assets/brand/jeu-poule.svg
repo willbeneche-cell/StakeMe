@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" width="320" height="200">
+  <defs>
+    <linearGradient id="pouleBg" x1="0" y1="0" x2="0.9" y2="1">
+      <stop offset="0" stop-color="#ffc400"/>
+      <stop offset="0.55" stop-color="#ff8a1f"/>
+      <stop offset="1" stop-color="#f4441f"/>
+    </linearGradient>
+    <radialGradient id="pouleShine" cx="0.28" cy="0.16" r="0.85">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="pouleGold" x1="0" y1="0" x2="0.2" y2="1">
+      <stop offset="0" stop-color="#ffd27a"/>
+      <stop offset="0.5" stop-color="#e8871f"/>
+      <stop offset="1" stop-color="#b5540c"/>
+    </linearGradient>
+    <linearGradient id="pouleSilver" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.45" stop-color="#d7dfe9"/>
+      <stop offset="1" stop-color="#8d99ab"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="320" height="200" fill="url(#pouleBg)"/>
+  <rect width="320" height="200" fill="url(#pouleShine)"/>
+
+  <!-- cloche soulevée -->
+  <g transform="translate(238 16) rotate(26)">
+    <path d="M-64 44c0-35 23-60 54-60s54 25 54 60z" fill="url(#pouleSilver)"/>
+    <path d="M-64 44h108" stroke="#f2f6fb" stroke-width="5"/>
+    <path d="M-20 4c6-14 16-22 28-24" stroke="#fff" stroke-width="6" opacity="0.75" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- assiette -->
+  <ellipse cx="142" cy="156" rx="92" ry="17" fill="#b9c4d2"/>
+  <ellipse cx="142" cy="151" rx="92" ry="16" fill="#eef2f7"/>
+  <ellipse cx="142" cy="150" rx="64" ry="9" fill="#ffffff" opacity="0.75"/>
+
+  <!-- poulet rôti -->
+  <g>
+    <path d="M76 116c-9-26 10-55 48-55s58 25 54 48c-3 17-23 28-50 28-29 0-47-9-52-21z" fill="url(#pouleGold)"/>
+    <path d="M72 108c-13 3-19 16-16 29 11 4 24-2 29-13z" fill="#a8550e"/>
+    <path d="M190 106c13 3 19 16 16 29-11 4-24-2-29-13z" fill="#a8550e"/>
+    <path d="M96 94c9-15 22-23 36-23 14 0 26 7 34 20-10-6-22-9-35-9-14 0-27 4-35 12z" fill="#ffe6ad" opacity="0.6"/>
+    <path d="M110 132l-10 17" stroke="#f6d9a6" stroke-width="10" stroke-linecap="round"/>
+    <path d="M170 132l10 17" stroke="#f6d9a6" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="97" cy="151" r="7.5" fill="#fdf1dc"/>
+    <circle cx="183" cy="151" r="7.5" fill="#fdf1dc"/>
+    <circle cx="124" cy="96" r="2.6" fill="#7a3b06" opacity="0.5"/>
+    <circle cx="142" cy="107" r="2.2" fill="#7a3b06" opacity="0.45"/>
+    <circle cx="160" cy="99" r="2" fill="#7a3b06" opacity="0.4"/>
+    <path d="M120 86c7-7 16-11 25-11" stroke="#fff3d0" stroke-width="5" opacity="0.55" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- étincelles -->
+  <g fill="#ffffff">
+    <path d="M50 58l3.4 9 9 3.4-9 3.4-3.4 9-3.4-9-9-3.4 9-3.4z" opacity="0.95"/>
+    <path d="M288 130l2.6 6.6 6.6 2.6-6.6 2.6-2.6 6.6-2.6-6.6-6.6-2.6 6.6-2.6z" opacity="0.9"/>
+    <path d="M248 70l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" opacity="0.8"/>
+    <circle cx="36" cy="118" r="2" opacity="0.7"/>
+    <circle cx="292" cy="46" r="1.8" opacity="0.6"/>
+  </g>
+</svg>
