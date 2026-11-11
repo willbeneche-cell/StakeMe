@@ -1,6 +1,6 @@
 /* =========================================================
    StakeMe — app controller
-   Navigation, wallet UI, dépôt fictif, live feed, historique.
+   Navigation, wallet UI, dépôt, live feed, historique.
    ========================================================= */
 
 import {
@@ -124,7 +124,7 @@ function doDeposit() {
     return;
   }
   if (amount > 100000) {
-    toast('Maximum 100 000 $ par dépôt fictif.', 'error');
+    toast('Maximum 100 000 $ par dépôt.', 'error');
     return;
   }
 
@@ -133,7 +133,7 @@ function doDeposit() {
   coinShower();
   confettiWin(0.9);
   sfx('coin');
-  toast(`+$${money(amount)} crédités sur ton solde fictif.`, 'success', 'coins');
+  toast(`+$${money(amount)} crédités sur ton solde.`, 'success', 'coins');
   closeModal('deposit');
 }
 
@@ -229,7 +229,7 @@ function saveName() {
 async function resetAccount() {
   const result = await Swal.fire({
     title: 'Réinitialiser le compte ?',
-    html: 'Le solde repasse à <b>1 000 $</b> fictifs.<br>Historique, statistiques et seeds seront effacés.',
+    html: 'Le solde repasse à <b>1 000 $</b>.<br>Historique, statistiques et seeds seront effacés.',
     icon: 'warning',
     showCancelButton: true,
     confirmButtonText: 'Réinitialiser',
@@ -378,7 +378,7 @@ function renderRecentActivity() {
 }
 
 /* =========================================================
-   LIVE FEED (fictif)
+   LIVE FEED
    ========================================================= */
 const FEED_PLAYERS = [
   ['0xLucky', '🦊'], ['NeonKing', '🐯'], ['Mika_777', '🐼'], ['stake_ghost', '👾'],
@@ -457,7 +457,7 @@ function renderSlots() {
     <button class="slot-card group" data-slot="${slot.name}">
       <div class="slot-cover" style="background:${slot.bg}">
         <span class="slot-glyph">${slot.glyph}</span>
-        <span class="absolute right-1.5 top-1.5 rounded-md border border-white/10 bg-black/35 px-1.5 py-0.5 text-[9px] font-semibold text-white/70">Démo</span>
+        <span class="absolute right-1.5 top-1.5 rounded-md border border-white/10 bg-black/35 px-1.5 py-0.5 text-[9px] font-semibold text-white/70">New</span>
       </div>
       <div class="slot-body">
         <p class="slot-name truncate">${slot.name}</p>
@@ -511,7 +511,7 @@ function bindGlobal() {
     if (slot) {
       Swal.fire({
         title: slot.dataset.slot,
-        html: 'Cette machine est décorative dans la démo.<br>Les gains réels se jouent dans les <b>4 originals</b> StakeMe.',
+        html: 'Cette machine est décorative.<br>Les gains se jouent dans les <b>4 originals</b> StakeMe.',
         icon: 'info',
         confirmButtonText: 'Voir les originals',
         showCancelButton: true,

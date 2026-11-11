@@ -1,7 +1,7 @@
 {
   "name": "StakeMe Casino",
   "short_name": "StakeMe",
-  "description": "Casino social 100 % fictif : Mines, Crash, La Poule et Dé. Aucun argent réel.",
+  "description": "Mines, Crash, La Poule et Dé — quatre jeux originaux aux résultats instantanés.",
   "lang": "fr",
   "dir": "ltr",
   "start_url": "./index.html",

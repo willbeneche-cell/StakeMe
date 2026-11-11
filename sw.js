@@ -1,7 +1,7 @@
 /* StakeMe — service worker
    Permet l'installation Android/iOS et un démarrage hors-ligne du shell.
    Incrémenter VERSION à chaque mise à jour d'assets. */
-const VERSION = 'stakeme-v1';
+const VERSION = 'stakeme-v2';
 
 const SHELL = [
   './index.html',

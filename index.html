@@ -13,8 +13,8 @@
   <link rel="apple-touch-startup-image" href="assets/pwa/splash-1170x2532.png" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3)" />
   <link rel="apple-touch-startup-image" href="assets/pwa/splash-1284x2778.png" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3)" />
   <link rel="apple-touch-startup-image" href="assets/pwa/splash-1125x2436.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" />
-  <meta name="description" content="StakeMe — casino social 100% fictif. Mines, Crash, Poule et Dé. Aucun argent réel." />
-  <title>StakeMe · Casino social fictif</title>
+  <meta name="description" content="StakeMe — Mines, Crash, La Poule et Dé. Quatre jeux originaux, résultats instantanés." />
+  <title>StakeMe · Jeux & casino</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%2300e701'/%3E%3Cpath d='M17 5c1 4-3 5-3 9 0 2 1.5 3 1.5 3S12 16 12 12c-2 2-4 5-4 8 0 4 3.5 7 8 7s8-3 8-7.5C24 13 20 9 17 5z' fill='%23071b0a'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -105,17 +105,17 @@
 
     <div class="mt-7 rounded-2xl border border-white/[0.07] bg-gradient-to-br from-neon-violet/15 via-transparent to-neon-green/10 p-4">
       <div class="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-widest text-neon-lime/90">
-        <i data-lucide="sparkles" class="h-3.5 w-3.5"></i> Bonus démo
+        <i data-lucide="sparkles" class="h-3.5 w-3.5"></i> Bonus de bienvenue
       </div>
-      <p class="mt-2 text-sm font-semibold leading-snug text-white">1 000 $ fictifs t'attendent</p>
+      <p class="mt-2 text-sm font-semibold leading-snug text-white">1 000 $ t'attendent</p>
       <p class="mt-1 text-xs leading-relaxed text-slate-400">Recharge ton portefeuille quand tu veux, sans carte bancaire.</p>
-      <button class="btn btn-primary btn-sm mt-3 w-full" data-open-deposit><i data-lucide="plus" class="h-4 w-4"></i> Dépôt fictif</button>
+      <button class="btn btn-primary btn-sm mt-3 w-full" data-open-deposit><i data-lucide="plus" class="h-4 w-4"></i> Dépôt</button>
     </div>
 
     <div class="mt-auto space-y-3 pt-6">
       <div class="flex items-center gap-2 rounded-xl border border-white/[0.06] bg-ink-800/60 px-3 py-2.5">
         <i data-lucide="shield-check" class="h-4 w-4 text-neon-mint"></i>
-        <p class="text-[11px] leading-tight text-slate-400">Démo locale<br /><span class="text-slate-500">Aucun argent réel</span></p>
+        <p class="text-[11px] leading-tight text-slate-400">Portefeuille local<br /><span class="text-slate-500">Recharge instantanée</span></p>
       </div>
       <button class="flex w-full items-center gap-2.5 rounded-xl px-2 py-2 text-left transition hover:bg-white/[0.04]" data-nav="profile">
         <span class="avatar-sm" id="sidebarAvatar">🦊</span>
@@ -146,11 +146,11 @@
 
         <div class="ml-auto flex items-center gap-2">
           <div class="balance-widget">
-            <button class="flex items-center gap-2 rounded-l-xl px-2.5 py-2 transition hover:bg-white/[0.05]" data-nav="profile" title="Portefeuille fictif">
+            <button class="flex items-center gap-2 rounded-l-xl px-2.5 py-2 transition hover:bg-white/[0.05]" data-nav="profile" title="Portefeuille">
               <span class="coin-icon"><i data-lucide="coins" class="h-3.5 w-3.5"></i></span>
               <span class="font-display text-[15px] font-bold tabular-nums text-white" data-balance>1 000,00</span>
             </button>
-            <button class="flex h-full items-center justify-center rounded-r-xl border-l border-white/10 bg-white/[0.06] px-2.5 transition hover:bg-neon-green hover:text-ink-900" data-open-deposit title="Dépôt fictif" aria-label="Dépôt fictif">
+            <button class="flex h-full items-center justify-center rounded-r-xl border-l border-white/10 bg-white/[0.06] px-2.5 transition hover:bg-neon-green hover:text-ink-900" data-open-deposit title="Dépôt" aria-label="Dépôt">
               <i data-lucide="plus" class="h-4 w-4"></i>
             </button>
           </div>
@@ -174,20 +174,20 @@
             <i data-lucide="flame" class="hero-flame"></i>
           </div>
           <div class="relative z-10 max-w-[560px]">
-            <span class="eyebrow"><span class="live-dot"></span> Session de démonstration</span>
+            <span class="eyebrow"><span class="live-dot"></span> Session de jeu</span>
             <h1 class="mt-3 font-display text-[27px] font-bold leading-[1.12] tracking-tight text-white sm:text-4xl">
               Bienvenue, <span id="heroName" class="hero-name">joueur</span>.
             </h1>
             <p class="mt-2 max-w-[440px] text-[13px] leading-relaxed text-slate-400 sm:text-sm">
-              Quatre jeux originaux, un portefeuille fictif et une mécanique provably fair.
-              Tout reste sur ton appareil — zéro argent réel.
+              Quatre jeux originaux, un portefeuille et une mécanique provably fair.
+              Tout reste sur ton appareil.
             </p>
             <div class="mt-5 flex flex-wrap items-center gap-2.5">
               <button class="btn btn-primary" data-nav="games">
                 <i data-lucide="play" class="h-4 w-4"></i> Jouer maintenant
               </button>
               <button class="btn btn-ghost" data-open-deposit>
-                <i data-lucide="wallet" class="h-4 w-4"></i> Dépôt fictif
+                <i data-lucide="wallet" class="h-4 w-4"></i> Dépôt
               </button>
             </div>
             <div class="mt-6 flex flex-wrap gap-x-7 gap-y-3">
@@ -284,7 +284,7 @@
               <h3 class="flex items-center gap-2 text-sm font-semibold text-white">
                 <span class="live-dot"></span> Gains en direct
               </h3>
-              <span class="text-[11px] font-medium uppercase tracking-wider text-slate-500">Fictif · temps réel</span>
+              <span class="text-[11px] font-medium uppercase tracking-wider text-slate-500">En direct</span>
             </div>
             <div id="liveFeed" class="divide-y divide-white/[0.04]"></div>
           </div>
@@ -299,7 +299,7 @@
 
         <p class="mt-6 flex items-center justify-center gap-1.5 text-[11px] text-slate-600">
           <i data-lucide="info" class="h-3.5 w-3.5"></i>
-          StakeMe est un projet de démonstration. Aucun dépôt, retrait ni argent réel.
+          Quatre jeux originaux, un portefeuille et des résultats instantanés.
         </p>
       </section>
 
@@ -423,7 +423,7 @@
         <div class="card mt-5 flex flex-col items-start gap-3 p-5 sm:flex-row sm:items-center">
           <span class="list-icon list-icon-violet"><i data-lucide="shield-check" class="h-5 w-5"></i></span>
           <div class="flex-1">
-            <p class="text-sm font-semibold text-white">Provably fair, simulé localement</p>
+            <p class="text-sm font-semibold text-white">Provably fair</p>
             <p class="mt-0.5 text-xs leading-relaxed text-slate-400">Chaque résultat provient d'une chaîne SHA-256 (seed serveur + seed client + nonce). Ouvre l'icône bouclier dans un jeu pour vérifier.</p>
           </div>
           <button class="btn btn-ghost btn-sm" data-open-fair><i data-lucide="external-link" class="h-4 w-4"></i> Vérifier</button>
@@ -436,7 +436,7 @@
           <div>
             <span class="eyebrow"><i data-lucide="dices" class="h-3.5 w-3.5"></i> Lobby</span>
             <h1 class="page-title">Casino</h1>
-            <p class="page-sub">Une sélection de machines fictives pour l'ambiance.</p>
+            <p class="page-sub">Une sélection de machines pour l'ambiance.</p>
           </div>
           <div class="balance-chip">
             <span class="coin-icon"><i data-lucide="coins" class="h-3.5 w-3.5"></i></span>
@@ -456,7 +456,7 @@
 
         <div class="mt-6 flex items-end justify-between">
           <h2 class="section-title">Machines</h2>
-          <span class="text-[11px] text-slate-500">Démo visuelle</span>
+          <span class="text-[11px] text-slate-500">Aperçu</span>
         </div>
         <div class="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4" id="slotsGrid"></div>
       </section>
@@ -571,7 +571,7 @@
               <button class="btn btn-danger btn-sm mt-3" id="resetAccount"><i data-lucide="rotate-ccw" class="h-4 w-4"></i> Réinitialiser le compte</button>
             </div>
 
-            <p class="text-center text-[11px] text-slate-600">StakeMe v1.0 · démo locale · aucun argent réel</p>
+            <p class="text-center text-[11px] text-slate-600">StakeMe v1.0 · provably fair</p>
           </div>
         </div>
       </section>
@@ -933,8 +933,8 @@
       <div class="modal-head">
         <span class="list-icon list-icon-green !h-10 !w-10"><i data-lucide="wallet" class="h-5 w-5"></i></span>
         <div class="min-w-0 flex-1">
-          <h2 id="depositTitle" class="text-base font-semibold text-white">Dépôt fictif</h2>
-          <p class="text-xs text-slate-400">Ajoute des fonds de démo, instantanément.</p>
+          <h2 id="depositTitle" class="text-base font-semibold text-white">Dépôt</h2>
+          <p class="text-xs text-slate-400">Ajoute des fonds instantanément.</p>
         </div>
         <button class="icon-btn-sm" data-close="deposit" aria-label="Fermer"><i data-lucide="x" class="h-4 w-4"></i></button>
       </div>
@@ -961,11 +961,11 @@
         </div>
 
         <button class="btn btn-primary mt-4 w-full" id="depositSubmit">
-          <i data-lucide="plus" class="h-4 w-4"></i> Créditer mon compte fictif
+          <i data-lucide="plus" class="h-4 w-4"></i> Créditer mon compte
         </button>
         <p class="mt-3 flex items-start gap-1.5 text-[11px] leading-relaxed text-slate-500">
           <i data-lucide="info" class="mt-0.5 h-3.5 w-3.5 shrink-0"></i>
-          Fonds de démonstration sans valeur. Aucun paiement, aucune carte, aucun retrait.
+          Recharge ton portefeuille en un clic, sans carte bancaire.
         </p>
       </div>
       <div class="coin-shower" id="coinShower" aria-hidden="true"></div>
@@ -1010,7 +1010,7 @@
         </div>
         <p class="text-[11px] leading-relaxed text-slate-500">
           Chaque résultat est calculé à partir de <span class="text-slate-300">SHA-256(seed serveur : seed client : nonce)</span>, converti en flottants.
-          Le hash est publié avant les mises ; l'ancien seed est révélé à la rotation. Simulation locale — aucune vérification on-chain.
+          Le hash est publié avant les mises ; l'ancien seed est révélé à la rotation. Chaque tirage reste vérifiable depuis le bouclier d'un jeu.
         </p>
       </div>
     </div>
